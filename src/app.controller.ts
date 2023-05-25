@@ -14,4 +14,9 @@ export class AppController {
   sayHello(): string {
     return this.appService.sayHello();
   }
+
+  @Get()
+  home() {
+    return 'Welcome to Home';
+  }
 }
