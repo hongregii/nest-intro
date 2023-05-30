@@ -13,5 +13,5 @@ export class CreateMovieDto {
   @IsString({ each: true })
   @IsOptional() // 미친거아냐?
   @ApiProperty({ description: '장르', required: true })
-  readonly genres: string[];
+  readonly genres: string;
 }

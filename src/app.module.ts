@@ -1,15 +1,26 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MoviesController } from './movies/movies.controller';
-import { MoviesService } from './movies/movies.service';
 import { MoviesModule } from './movies/movies.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 // command line interface => command line에서 nest generate (=g) [name] 하면 뭔가 막 됨!! 짱이다
 
 @Module({
   // 데코레이터가 있다~ 클래스의 함수를 추가해준다고 함.
-  imports: [MoviesModule],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      database: 'test',
+      entities: ['dist/**/*.entity.js'],
+      synchronize: false, //개발단에선 true, 운영단에선 false
+    }),
+    //TypeOrmModule.forRootAsync({useFactory: ormConfig})
+    MoviesModule,
+  ],
   // Controller : takes a URL and execute a function. sth like a router in Express.
   controllers: [AppController], //얘를 따라가보자.
   providers: [AppService],

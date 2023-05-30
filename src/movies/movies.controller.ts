@@ -22,7 +22,7 @@ export class MoviesController {
   constructor(private readonly moviesService: MoviesService) {}
 
   @Get()
-  getAll(): Movie[] {
+  getAll(): Promise<Movie[]> {
     return this.moviesService.getAll();
   }
 
@@ -32,7 +32,7 @@ export class MoviesController {
   } // 이놈이 아래 함수보다 밑에서 선언되면 "search" 가 path parameter의 id라고 판단함 ㅋㅋ
 
   @Get(':id') // path parameter!
-  getOne(@Param('id') movieId: number): Movie {
+  getOne(@Param('id') movieId: number): Promise<Movie> {
     // 기본 문법. @Param(path parameter) 변수명:형
     return this.moviesService.getOne(movieId);
   }
